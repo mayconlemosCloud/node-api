@@ -18,22 +18,46 @@ jobs:
         options: --privileged
         ports:
           - 3000:3000
+          - 5000:5000 # Adiciona a porta para o registro local
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2 # Faz o checkout do código do repositório
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3 # Configura o QEMU para emulação de arquitetura
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3 # Configura o Docker Buildx
+        with:
+          driver-opts: network=host
 
-      - name: Build Docker image
-        run: docker-compose up --build -d
+      - name: Start local registry
+        run: docker run -d -p 5000:5000 --name registry registry:2 # Inicia um registro Docker local
+
+      - name: Log in to local registry
+        run: echo "localhost:5000" > ~/.docker/config.json # Faz login no registro local
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6 # Constrói e envia a imagem Docker para o registro local
+        with:
+          push: true
+          tags: localhost:5000/my-app:latest
+
+      - name: Inspect Docker image
+        run: docker buildx imagetools inspect localhost:5000/my-app:latest # Inspeciona a imagem Docker
+
+      - name: Use Docker Compose
+        uses: docker/compose-action@v2 # Usa o Docker Compose para subir os serviços
+        with:
+          compose-file: docker-compose.yml
+          run: up --build -d
 
       - name: Wait for services to be ready
-        run: sleep 20
+        run: sleep 20 # Aguarda os serviços ficarem prontos
 
       - name: Run Jest tests
-        run: docker-compose exec app npm test
+        run: docker-compose exec app npm test # Executa os testes Jest
 
       - name: Run Cypress tests
-        run: docker-compose exec app npm run cypress:run
+        run: docker-compose exec app npm run cypress:run # Executa os testes Cypress
