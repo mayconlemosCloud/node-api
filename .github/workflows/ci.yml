@@ -28,14 +28,17 @@ jobs:
         run: docker-compose exec -T app npm run build
 
       - name: Build Docker image
-        run: docker build -t app:latest .
+        run: docker build -t localhost:5000/app:latest .
+
+      - name: Push Docker image to local registry
+        run: docker push localhost:5000/app:latest
 
   test:
     runs-on: ubuntu-latest
     needs: build
     services:
       app:
-        image: app:latest
+        image: localhost:5000/app:latest
         options: --network-alias app
     steps:
       - name: Checkout code
@@ -49,7 +52,7 @@ jobs:
     needs: test
     services:
       app:
-        image: app:latest
+        image: localhost:5000/app:latest
         options: --network-alias app
     steps:
       - name: Checkout code
