@@ -19,7 +19,9 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Set up Docker Compose
-        run: sudo apt-get install docker-compose
+        uses: docker/setup-buildx-action@v2
+        with:
+          version: 'latest'
 
       - name: Build and start services
         run: docker-compose up --build -d
@@ -34,6 +36,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Docker Compose
+        uses: docker/setup-buildx-action@v2
+        with:
+          version: 'latest'
+
       - name: Run unit tests
         run: docker-compose exec -T app npm test
 
@@ -44,6 +51,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Docker Compose
+        uses: docker/setup-buildx-action@v2
+        with:
+          version: 'latest'
+
       - name: Run Cypress tests
         run: docker-compose exec -T app npm run cypress:run
 
@@ -53,6 +65,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set up Docker Compose
+        uses: docker/setup-buildx-action@v2
+        with:
+          version: 'latest'
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
