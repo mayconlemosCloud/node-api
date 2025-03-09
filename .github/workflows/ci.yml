@@ -9,16 +9,14 @@ on:
       - develop
 
 jobs:
-  build:
+  docker:
     runs-on: ubuntu-latest
 
     services:
-      docker:
-        image: docker:19.03.12
-        options: --privileged
+      registry:
+        image: registry:2
         ports:
-          - 3000:3000
-          - 5000:5000 # Adiciona a porta para o registro local
+          - 5000:5000
 
     steps:
       - name: Checkout code
@@ -32,20 +30,14 @@ jobs:
         with:
           driver-opts: network=host
 
-      - name: Start local registry
-        run: docker run -d -p 5000:5000 --name registry registry:2 # Inicia um registro Docker local
-
-      - name: Log in to local registry
-        run: echo "localhost:5000" > ~/.docker/config.json # Faz login no registro local
-
-      - name: Build and push Docker image
+      - name: Build and push to local registry
         uses: docker/build-push-action@v6 # Constrói e envia a imagem Docker para o registro local
         with:
           push: true
-          tags: localhost:5000/my-app:latest
+          tags: localhost:5000/name/app:latest
 
-      - name: Inspect Docker image
-        run: docker buildx imagetools inspect localhost:5000/my-app:latest # Inspeciona a imagem Docker
+      - name: Inspect
+        run: docker buildx imagetools inspect localhost:5000/name/app:latest # Inspeciona a imagem Docker
 
       - name: Use Docker Compose
         uses: docker/compose-action@v2 # Usa o Docker Compose para subir os serviços
