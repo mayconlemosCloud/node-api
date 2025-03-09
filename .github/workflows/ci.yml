@@ -23,6 +23,7 @@ jobs:
 
       - name: Build and start services
         run: docker-compose up --build -d
+        
 
       - name: Build project
         run: docker-compose exec -T app npm run build
