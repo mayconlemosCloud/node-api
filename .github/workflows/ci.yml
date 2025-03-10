@@ -16,16 +16,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4 # Faz o checkout do código do repositório
 
-      - name: Use Docker Compose
-        uses: hoverkraft-tech/compose-action@v2.0.1 # Usa o Docker Compose para subir os serviços
+      - name: Run Docker Compose with Tests
+        uses: adambirds/docker-compose-action@v1.5.0 # Usa o Docker Compose para subir os serviços e executar os testes
         with:
-          compose-file: docker-compose.yml
-
-      - name: Run Docker Compose
-        run: docker-compose up -d # Sobe os serviços
-
-      - name: Run Jest tests
-        run: docker-compose exec app npm test # Executa os testes Jest
-
-      - name: Run Cypress tests
-        run: docker-compose exec app npm run cypress:run # Executa os testes Cypress
+          compose-file: "./docker-compose.yml"
+          up-flags: "--build"
+          down-flags: "--volumes"
+          test-container: "app"
+          test-command: "npm test && npm run cypress:run" # Executa os testes Jest e Cypress
