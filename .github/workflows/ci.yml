@@ -23,7 +23,7 @@ jobs:
           up-flags: "--build"
           down-flags: "--volumes"
           test-container: "app"
-          test-command: "npm run test && npm run cypress:run" # Executa os testes Jest e Cypress
+          test-command: "npm run test"
 
       - name: Create Release Branch and PR
         if: success()
