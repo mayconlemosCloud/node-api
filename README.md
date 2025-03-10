@@ -1,181 +1,334 @@
 # API-Node-Express
 
-🇺🇸 This is an API built with Express and TypeScript, providing a simple user management system. The API includes endpoints for creating, reading, updating, and deleting users, and it also includes Swagger documentation.
+<form>
+  <input type="radio" id="english" name="language" value="english" checked>
+  <label for="english">English</label>
+  <input type="radio" id="portuguese" name="language" value="portuguese">
+  <label for="portuguese">Português</label>
+</form>
 
-🇧🇷 Esta é uma API construída com Express e TypeScript, fornecendo um sistema simples de gerenciamento de usuários. A API inclui endpoints para criar, ler, atualizar e excluir usuários, e também inclui documentação Swagger.
+<div id="english-content">
+  This is an API built with Express and TypeScript, providing a simple user management system. The API includes endpoints for creating, reading, updating, and deleting users, and it also includes Swagger documentation.
 
-## Features / Funcionalidades
+  ## Features
 
-- 🇺🇸 Create, read, update, and delete users
-- 🇧🇷 Criar, ler, atualizar e excluir usuários
-- 🇺🇸 Swagger API documentation
-- 🇧🇷 Documentação da API Swagger
-- 🇺🇸 Docker support
-- 🇧🇷 Suporte ao Docker
+  - Create, read, update, and delete users
+  - Swagger API documentation
+  - Docker support
 
-## Prerequisites / Pré-requisitos
+  ## Prerequisites
 
-- 🇺🇸 Node.js
-- 🇧🇷 Node.js
-- 🇺🇸 npm
-- 🇧🇷 npm
-- 🇺🇸 Docker (optional)
-- 🇧🇷 Docker (opcional)
+  - Node.js
+  - npm
+  - Docker (optional)
 
-## Getting Started / Começando
+  ## Getting Started
 
-### Installation / Instalação
+  ### Installation
 
-1. 🇺🇸 Clone the repository:
-   🇧🇷 Clone o repositório:
-   ```bash
-   git clone https://github.com/yourusername/api-node-express.git
-   cd api-node-express
-   ```
+  1. Clone the repository:
+     ```bash
+     git clone https://github.com/yourusername/api-node-express.git
+     cd api-node-express
+     ```
 
-2. 🇺🇸 Install dependencies:
-   🇧🇷 Instale as dependências:
-   ```bash
-   npm install
-   ```
+  2. Install dependencies:
+     ```bash
+     npm install
+     ```
 
-### Running the API / Executando a API
+  ### Running the API
 
-#### Development / Desenvolvimento
+  #### Development
 
-🇺🇸 To run the API in development mode with hot-reloading:
-🇧🇷 Para executar a API em modo de desenvolvimento com recarregamento automático:
+  To run the API in development mode with hot-reloading:
+  ```bash
+  npm run dev
+  ```
 
-```bash
-npm run dev
-```
+  #### Production
 
-#### Production / Produção
+  To build and run the API in production mode:
+  ```bash
+  npm run build
+  npm start
+  ```
 
-🇺🇸 To build and run the API in production mode:
-🇧🇷 Para construir e executar a API em modo de produção:
+  ### Docker
 
-```bash
-npm run build
-npm start
-```
+  To run the API using Docker:
+  1. Build and start the Docker containers:
+     ```bash
+     docker-compose up --build
+     ```
 
-### Docker
+  2. The API will be available at `http://localhost:3000`.
 
-🇺🇸 To run the API using Docker:
-🇧🇷 Para executar a API usando Docker:
+  ### Running Tests
 
-1. 🇺🇸 Build and start the Docker containers:
-   🇧🇷 Construa e inicie os contêineres Docker:
-   ```bash
-   docker-compose up --build
-   ```
+  #### Jest
 
-2. 🇺🇸 The API will be available at `http://localhost:3000`.
-   🇧🇷 A API estará disponível em `http://localhost:3000`.
+  To run the Jest tests:
+  ```bash
+  npm test
+  ```
 
-### Running Tests / Executando Testes
+  #### Cypress
 
-#### Jest
+  To open the Cypress test runner:
+  ```bash
+  npm run cypress:open
+  ```
 
-🇺🇸 To run the Jest tests:
-🇧🇷 Para executar os testes Jest:
+  To run the Cypress tests in headless mode:
+  ```bash
+  npm run cypress:run
+  ```
 
-```bash
-npm test
-```
+  ### API Documentation
 
-#### Cypress
+  The API documentation is available at `http://localhost:3000/api-docs` when the server is running.
 
-🇺🇸 To open the Cypress test runner:
-🇧🇷 Para abrir o executor de testes Cypress:
+  ## Project Structure
 
-```bash
-npm run cypress:open
-```
+  - `src/`: Source code
+    - `controllers/`: Request handlers
+    - `models/`: Data models
+    - `routes/`: API routes
+    - `services/`: Business logic
+  - `dist/`: Compiled code
+  - `docker-compose.yml`: Docker Compose configuration
+  - `Dockerfile`: Docker image configuration
+  - `package.json`: Project metadata and scripts
+  - `tsconfig.json`: TypeScript configuration
 
-🇺🇸 To run the Cypress tests in headless mode:
-🇧🇷 Para executar os testes Cypress em modo headless:
+  ## Pipeline Flow
 
-```bash
-npm run cypress:run
-```
+  ```mermaid
+  graph TD
+      A[Push or PR to develop branch] -->|Triggers| B[CI Job]
+      B --> C[Checkout code]
+      C --> D[Run Docker Compose with Tests]
+      D --> E[Build and Test]
+      E -->|Success| F[Create Release Branch and PR]
+      E -->|Failure| H[Notify Developers]
+      F --> G[Push Release Branch to Remote]
+      G --> I[Deploy to Production]
+  ```
 
-### API Documentation / Documentação da API
+  ## Project Flow
 
-🇺🇸 The API documentation is available at `http://localhost:3000/api-docs` when the server is running.
-🇧🇷 A documentação da API está disponível em `http://localhost:3000/api-docs` quando o servidor está em execução.
+  ```mermaid
+  graph TD
+      A[Client Request] -->|HTTP Request| B[API Endpoint]
+      B -->|Routes Request| C[Controller]
+      C -->|Validates Request| D[Service]
+      D -->|Queries| E[Database]
+      E -->|Returns Data| D
+      E -->|Error| J[Error Handling]
+      D -->|Processes Data| C
+      C -->|Sends Response| B
+      B -->|HTTP Response| A
+      J -->|Logs Error| K[Logging Service]
+      J -->|Sends Error Response| B
+  ```
 
-## Project Structure / Estrutura do Projeto
+  ### Component Descriptions
 
-- `src/`: 🇺🇸 Source code / 🇧🇷 Código fonte
-  - `controllers/`: 🇺🇸 Request handlers / 🇧🇷 Manipuladores de requisições
-  - `models/`: 🇺🇸 Data models / 🇧🇷 Modelos de dados
-  - `routes/`: 🇺🇸 API routes / 🇧🇷 Rotas da API
-  - `services/`: 🇺🇸 Business logic / 🇧🇷 Lógica de negócios
-- `dist/`: 🇺🇸 Compiled code / 🇧🇷 Código compilado
-- `docker-compose.yml`: 🇺🇸 Docker Compose configuration / 🇧🇷 Configuração do Docker Compose
-- `Dockerfile`: 🇺🇸 Docker image configuration / 🇧🇷 Configuração da imagem Docker
-- `package.json`: 🇺🇸 Project metadata and scripts / 🇧🇷 Metadados e scripts do projeto
-- `tsconfig.json`: 🇺🇸 TypeScript configuration / 🇧🇷 Configuração do TypeScript
+  - **Client Request**: The initial request made by the client to the API.
+  - **API Endpoint**: The specific URL that the client interacts with.
+    - **Routes**:
+      - `POST /users`: Create a new user
+      - `GET /users`: Retrieve all users
+      - `GET /users/:id`: Retrieve a specific user
+      - `PUT /users/:id`: Update a specific user
+      - `DELETE /users/:id`: Delete a specific user
+  - **Controller**: Handles the incoming request, validates it, and calls the appropriate service.
+  - **Service**: Contains the business logic and interacts with the database.
+  - **Database**: Stores and retrieves data.
+  - **Error Handling**: Manages any errors that occur during the request processing.
+  - **Logging Service**: Logs errors and other important information.
 
-## Pipeline Flow / Fluxo do Pipeline
+  ### Possible Outcomes
 
-```mermaid
-graph TD
-    A[🇺🇸 Push or PR to develop branch / 🇧🇷 Push ou PR para a branch develop] -->|🇺🇸 Triggers / 🇧🇷 Dispara| B[🇺🇸 CI Job / 🇧🇷 Job de CI]
-    B --> C[🇺🇸 Checkout code / 🇧🇷 Checkout do código]
-    C --> D[🇺🇸 Run Docker Compose with Tests / 🇧🇷 Executar Docker Compose com Testes]
-    D --> E[🇺🇸 Build and Test / 🇧🇷 Construir e Testar]
-    E -->|🇺🇸 Success / 🇧🇷 Sucesso| F[🇺🇸 Create Release Branch and PR / 🇧🇷 Criar Branch de Release e PR]
-    E -->|🇺🇸 Failure / 🇧🇷 Falha| H[🇺🇸 Notify Developers / 🇧🇷 Notificar Desenvolvedores]
-    F --> G[🇺🇸 Push Release Branch to Remote / 🇧🇷 Push da Branch de Release para o Remoto]
-    G --> I[🇺🇸 Deploy to Production / 🇧🇷 Deploy para Produção]
-```
+  - **Success**: The request is processed successfully, and the client receives the expected response.
+    - **200 OK**: Successful GET, PUT, DELETE requests
+    - **201 Created**: Successful POST request
+  - **Validation Error**: The request is invalid, and an error response is sent back to the client.
+    - **400 Bad Request**: Invalid request data
+  - **Database Error**: An error occurs while querying the database, and an error response is sent back to the client.
+    - **500 Internal Server Error**: Database query error
+  - **Unhandled Error**: An unexpected error occurs, and an error response is sent back to the client.
+    - **500 Internal Server Error**: Unexpected server error
+</div>
 
-## Project Flow / Fluxo do Projeto
+<div id="portuguese-content" style="display:none;">
+  Esta é uma API construída com Express e TypeScript, fornecendo um sistema simples de gerenciamento de usuários. A API inclui endpoints para criar, ler, atualizar e excluir usuários, e também inclui documentação Swagger.
 
-```mermaid
-graph TD
-    A[🇺🇸 Client Request / 🇧🇷 Requisição do Cliente] -->|🇺🇸 HTTP Request / 🇧🇷 Requisição HTTP| B[🇺🇸 API Endpoint / 🇧🇷 Endpoint da API]
-    B -->|🇺🇸 Routes Request / 🇧🇷 Roteia Requisição| C[🇺🇸 Controller / 🇧🇷 Controlador]
-    C -->|🇺🇸 Validates Request / 🇧🇷 Valida Requisição| D[🇺🇸 Service / 🇧🇷 Serviço]
-    D -->|🇺🇸 Queries / 🇧🇷 Consulta| E[🇺🇸 Database / 🇧🇷 Banco de Dados]
-    E -->|🇺🇸 Returns Data / 🇧🇷 Retorna Dados| D
-    E -->|🇺🇸 Error / 🇧🇷 Erro| J[🇺🇸 Error Handling / 🇧🇷 Tratamento de Erros]
-    D -->|🇺🇸 Processes Data / 🇧🇷 Processa Dados| C
-    C -->|🇺🇸 Sends Response / 🇧🇷 Envia Resposta| B
-    B -->|🇺🇸 HTTP Response / 🇧🇷 Resposta HTTP| A
-    J -->|🇺🇸 Logs Error / 🇧🇷 Registra Erro| K[🇺🇸 Logging Service / 🇧🇷 Serviço de Log]
-    J -->|🇺🇸 Sends Error Response / 🇧🇷 Envia Resposta de Erro| B
-```
+  ## Funcionalidades
 
-### Component Descriptions / Descrições dos Componentes
+  - Criar, ler, atualizar e excluir usuários
+  - Documentação da API Swagger
+  - Suporte ao Docker
 
-- **Client Request / Requisição do Cliente**: 🇺🇸 The initial request made by the client to the API. / 🇧🇷 A requisição inicial feita pelo cliente para a API.
-- **API Endpoint / Endpoint da API**: 🇺🇸 The specific URL that the client interacts with. / 🇧🇷 A URL específica com a qual o cliente interage.
-  - **Routes / Rotas**:
-    - 🇺🇸 `POST /users`: Create a new user / 🇧🇷 Criar um novo usuário
-    - 🇺🇸 `GET /users`: Retrieve all users / 🇧🇷 Recuperar todos os usuários
-    - 🇺🇸 `GET /users/:id`: Retrieve a specific user / 🇧🇷 Recuperar um usuário específico
-    - 🇺🇸 `PUT /users/:id`: Update a specific user / 🇧🇷 Atualizar um usuário específico
-    - 🇺🇸 `DELETE /users/:id`: Delete a specific user / 🇧🇷 Excluir um usuário específico
-- **Controller / Controlador**: 🇺🇸 Handles the incoming request, validates it, and calls the appropriate service. / 🇧🇷 Lida com a requisição recebida, valida e chama o serviço apropriado.
-- **Service / Serviço**: 🇺🇸 Contains the business logic and interacts with the database. / 🇧🇷 Contém a lógica de negócios e interage com o banco de dados.
-- **Database / Banco de Dados**: 🇺🇸 Stores and retrieves data. / 🇧🇷 Armazena e recupera dados.
-- **Error Handling / Tratamento de Erros**: 🇺🇸 Manages any errors that occur during the request processing. / 🇧🇷 Gerencia quaisquer erros que ocorram durante o processamento da requisição.
-- **Logging Service / Serviço de Log**: 🇺🇸 Logs errors and other important information. / 🇧🇷 Registra erros e outras informações importantes.
+  ## Pré-requisitos
 
-### Possible Outcomes / Resultados Possíveis
+  - Node.js
+  - npm
+  - Docker (opcional)
 
-- **Success / Sucesso**: 🇺🇸 The request is processed successfully, and the client receives the expected response. / 🇧🇷 A requisição é processada com sucesso e o cliente recebe a resposta esperada.
-  - 🇺🇸 **200 OK**: Successful GET, PUT, DELETE requests / 🇧🇷 Requisições GET, PUT, DELETE bem-sucedidas
-  - 🇺🇸 **201 Created**: Successful POST request / 🇧🇷 Requisição POST bem-sucedida
-- **Validation Error / Erro de Validação**: 🇺🇸 The request is invalid, and an error response is sent back to the client. / 🇧🇷 A requisição é inválida e uma resposta de erro é enviada de volta ao cliente.
-  - 🇺🇸 **400 Bad Request**: Invalid request data / 🇧🇷 Dados de requisição inválidos
-- **Database Error / Erro de Banco de Dados**: 🇺🇸 An error occurs while querying the database, and an error response is sent back to the client. / 🇧🇷 Ocorre um erro ao consultar o banco de dados e uma resposta de erro é enviada de volta ao cliente.
-  - 🇺🇸 **500 Internal Server Error**: Database query error / 🇧🇷 Erro de consulta ao banco de dados
-- **Unhandled Error / Erro Não Tratado**: 🇺🇸 An unexpected error occurs, and an error response is sent back to the client. / 🇧🇷 Ocorre um erro inesperado e uma resposta de erro é enviada de volta ao cliente.
-  - 🇺🇸 **500 Internal Server Error**: Unexpected server error / 🇧🇷 Erro inesperado do servidor
+  ## Começando
+
+  ### Instalação
+
+  1. Clone o repositório:
+     ```bash
+     git clone https://github.com/yourusername/api-node-express.git
+     cd api-node-express
+     ```
+
+  2. Instale as dependências:
+     ```bash
+     npm install
+     ```
+
+  ### Executando a API
+
+  #### Desenvolvimento
+
+  Para executar a API em modo de desenvolvimento com recarregamento automático:
+  ```bash
+  npm run dev
+  ```
+
+  #### Produção
+
+  Para construir e executar a API em modo de produção:
+  ```bash
+  npm run build
+  npm start
+  ```
+
+  ### Docker
+
+  Para executar a API usando Docker:
+  1. Construa e inicie os contêineres Docker:
+     ```bash
+     docker-compose up --build
+     ```
+
+  2. A API estará disponível em `http://localhost:3000`.
+
+  ### Executando Testes
+
+  #### Jest
+
+  Para executar os testes Jest:
+  ```bash
+  npm test
+  ```
+
+  #### Cypress
+
+  Para abrir o executor de testes Cypress:
+  ```bash
+  npm run cypress:open
+  ```
+
+  Para executar os testes Cypress em modo headless:
+  ```bash
+  npm run cypress:run
+  ```
+
+  ### Documentação da API
+
+  A documentação da API está disponível em `http://localhost:3000/api-docs` quando o servidor está em execução.
+
+  ## Estrutura do Projeto
+
+  - `src/`: Código fonte
+    - `controllers/`: Manipuladores de requisições
+    - `models/`: Modelos de dados
+    - `routes/`: Rotas da API
+    - `services/`: Lógica de negócios
+  - `dist/`: Código compilado
+  - `docker-compose.yml`: Configuração do Docker Compose
+  - `Dockerfile`: Configuração da imagem Docker
+  - `package.json`: Metadados e scripts do projeto
+  - `tsconfig.json`: Configuração do TypeScript
+
+  ## Fluxo do Pipeline
+
+  ```mermaid
+  graph TD
+      A[Push ou PR para a branch develop] -->|Dispara| B[Job de CI]
+      B --> C[Checkout do código]
+      C --> D[Executar Docker Compose com Testes]
+      D --> E[Construir e Testar]
+      E -->|Sucesso| F[Criar Branch de Release e PR]
+      E -->|Falha| H[Notificar Desenvolvedores]
+      F --> G[Push da Branch de Release para o Remoto]
+      G --> I[Deploy para Produção]
+  ```
+
+  ## Fluxo do Projeto
+
+  ```mermaid
+  graph TD
+      A[Requisição do Cliente] -->|Requisição HTTP| B[Endpoint da API]
+      B -->|Roteia Requisição| C[Controlador]
+      C -->|Valida Requisição| D[Serviço]
+      D -->|Consulta| E[Banco de Dados]
+      E -->|Retorna Dados| D
+      E -->|Erro| J[Tratamento de Erros]
+      D -->|Processa Dados| C
+      C -->|Envia Resposta| B
+      B -->|Resposta HTTP| A
+      J -->|Registra Erro| K[Serviço de Log]
+      J -->|Envia Resposta de Erro| B
+  ```
+
+  ### Descrições dos Componentes
+
+  - **Requisição do Cliente**: A requisição inicial feita pelo cliente para a API.
+  - **Endpoint da API**: A URL específica com a qual o cliente interage.
+    - **Rotas**:
+      - `POST /users`: Criar um novo usuário
+      - `GET /users`: Recuperar todos os usuários
+      - `GET /users/:id`: Recuperar um usuário específico
+      - `PUT /users/:id`: Atualizar um usuário específico
+      - `DELETE /users/:id`: Excluir um usuário específico
+  - **Controlador**: Lida com a requisição recebida, valida e chama o serviço apropriado.
+  - **Serviço**: Contém a lógica de negócios e interage com o banco de dados.
+  - **Banco de Dados**: Armazena e recupera dados.
+  - **Tratamento de Erros**: Gerencia quaisquer erros que ocorram durante o processamento da requisição.
+  - **Serviço de Log**: Registra erros e outras informações importantes.
+
+  ### Resultados Possíveis
+
+  - **Sucesso**: A requisição é processada com sucesso e o cliente recebe a resposta esperada.
+    - **200 OK**: Requisições GET, PUT, DELETE bem-sucedidas
+    - **201 Created**: Requisição POST bem-sucedida
+  - **Erro de Validação**: A requisição é inválida e uma resposta de erro é enviada de volta ao cliente.
+    - **400 Bad Request**: Dados de requisição inválidos
+  - **Erro de Banco de Dados**: Ocorre um erro ao consultar o banco de dados e uma resposta de erro é enviada de volta ao cliente.
+    - **500 Internal Server Error**: Erro de consulta ao banco de dados
+  - **Erro Não Tratado**: Ocorre um erro inesperado e uma resposta de erro é enviada de volta ao cliente.
+    - **500 Internal Server Error**: Erro inesperado do servidor
+</div>
+
+<script>
+  document.querySelectorAll('input[name="language"]').forEach((elem) => {
+    elem.addEventListener("change", function(event) {
+      if (event.target.value === "english") {
+        document.getElementById("english-content").style.display = "block";
+        document.getElementById("portuguese-content").style.display = "none";
+      } else {
+        document.getElementById("english-content").style.display = "none";
+        document.getElementById("portuguese-content").style.display = "block";
+      }
+    });
+  });
+</script>
 
 
