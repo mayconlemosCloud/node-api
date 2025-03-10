@@ -53,3 +53,10 @@ jobs:
           assignees: ${{ github.actor }}
           labels: "release"
 
+      - name: Push Release Branch to Remote
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git push origin release-${{ steps.generate_version.outputs.version }}
+
