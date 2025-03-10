@@ -1,13 +1,6 @@
 # API-Node-Express
 
-<form>
-  <input type="radio" id="english" name="language" value="english" checked>
-  <label for="english">English</label>
-  <input type="radio" id="portuguese" name="language" value="portuguese">
-  <label for="portuguese">Português</label>
-</form>
 
-<div id="english-content">
   This is an API built with Express and TypeScript, providing a simple user management system. The API includes endpoints for creating, reading, updating, and deleting users, and it also includes Swagger documentation.
 
   ## Features
@@ -162,7 +155,9 @@
     - **500 Internal Server Error**: Unexpected server error
 </div>
 
-<div id="portuguese-content" style="display:none;">
+
+
+
   Esta é uma API construída com Express e TypeScript, fornecendo um sistema simples de gerenciamento de usuários. A API inclui endpoints para criar, ler, atualizar e excluir usuários, e também inclui documentação Swagger.
 
   ## Funcionalidades
@@ -317,18 +312,5 @@
     - **500 Internal Server Error**: Erro inesperado do servidor
 </div>
 
-<script>
-  document.querySelectorAll('input[name="language"]').forEach((elem) => {
-    elem.addEventListener("change", function(event) {
-      if (event.target.value === "english") {
-        document.getElementById("english-content").style.display = "block";
-        document.getElementById("portuguese-content").style.display = "none";
-      } else {
-        document.getElementById("english-content").style.display = "none";
-        document.getElementById("portuguese-content").style.display = "block";
-      }
-    });
-  });
-</script>
 
 
