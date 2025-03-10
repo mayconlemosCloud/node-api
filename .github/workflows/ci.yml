@@ -37,12 +37,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4 # Faz o checkout do código do repositório
 
+      - name: Generate version number
+        id: generate_version
+        run: echo "::set-output name=version::$(date +'%Y%m%d%H%M%S')"
+
       - name: Create Release Branch and PR
         if: ${{ success() }}
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: release
+          branch: release-${{ steps.generate_version.outputs.version }}
           commit-message: "Create release branch"
           title: "Create release branch"
           body: "This PR creates a new release branch."
