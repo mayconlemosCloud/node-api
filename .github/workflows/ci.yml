@@ -42,3 +42,8 @@ jobs:
           commit-message: "Create release branch"
           title: "Create release branch"
           body: "This PR creates a new release branch."
+
+      - name: Push Release Branch to Remote
+        if: ${{ success() }}
+        run: |
+          git push origin release
