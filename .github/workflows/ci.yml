@@ -52,6 +52,7 @@ jobs:
           body: "This PR creates a new release branch."
           assignees: ${{ github.actor }}
           labels: "release"
+          base: main
 
       - name: Push Release Branch to Remote
         env:
