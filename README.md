@@ -109,8 +109,55 @@ graph TD
     C --> D[Run Docker Compose with Tests]
     D --> E[Build and Test]
     E -->|Success| F[Create Release Branch and PR]
+    E -->|Failure| H[Notify Developers]
     F --> G[Push Release Branch to Remote]
+    G --> I[Deploy to Production]
 ```
+
+## Project Flow
+
+```mermaid
+graph TD
+    A[Client Request] -->|HTTP Request| B[API Endpoint]
+    B -->|Routes Request| C[Controller]
+    C -->|Validates Request| D[Service]
+    D -->|Queries| E[Database]
+    E -->|Returns Data| D
+    E -->|Error| J[Error Handling]
+    D -->|Processes Data| C
+    C -->|Sends Response| B
+    B -->|HTTP Response| A
+    J -->|Logs Error| K[Logging Service]
+    J -->|Sends Error Response| B
+```
+
+### Component Descriptions
+
+- **Client Request**: The initial request made by the client to the API.
+- **API Endpoint**: The specific URL that the client interacts with.
+  - **Routes**:
+    - `POST /users`: Create a new user
+    - `GET /users`: Retrieve all users
+    - `GET /users/:id`: Retrieve a specific user
+    - `PUT /users/:id`: Update a specific user
+    - `DELETE /users/:id`: Delete a specific user
+- **Controller**: Handles the incoming request, validates it, and calls the appropriate service.
+- **Service**: Contains the business logic and interacts with the database.
+- **Database**: Stores and retrieves data.
+- **Error Handling**: Manages any errors that occur during the request processing.
+- **Logging Service**: Logs errors and other important information.
+
+### Possible Outcomes
+
+- **Success**: The request is processed successfully, and the client receives the expected response.
+  - **200 OK**: Successful GET, PUT, DELETE requests
+  - **201 Created**: Successful POST request
+- **Validation Error**: The request is invalid, and an error response is sent back to the client.
+  - **400 Bad Request**: Invalid request data
+- **Database Error**: An error occurs while querying the database, and an error response is sent back to the client.
+  - **500 Internal Server Error**: Database query error
+- **Unhandled Error**: An unexpected error occurs, and an error response is sent back to the client.
+  - **500 Internal Server Error**: Unexpected server error
 
 ## License
 
