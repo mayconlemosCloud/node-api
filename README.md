@@ -102,31 +102,30 @@ The API documentation is available at `http://localhost:3000/api-docs` when the 
 
 ## Pipeline Flow
 
-```html
-<!-- Pipeline Flow Diagram -->
-<svg width="600" height="400">
-  <rect x="50" y="20" width="200" height="50" style="fill:lightblue;stroke:black;stroke-width:1;" />
-  <text x="150" y="50" font-family="Verdana" font-size="15" fill="black" text-anchor="middle">Push to develop</text>
+<div>
+  <svg width="600" height="400">
+    <rect x="50" y="20" width="200" height="50" style="fill:lightblue;stroke:black;stroke-width:1;" />
+    <text x="150" y="50" font-family="Verdana" font-size="15" fill="black" text-anchor="middle">Push to develop</text>
 
-  <line x1="150" y1="70" x2="150" y2="100" style="stroke:black;stroke-width:1;" />
-  <polygon points="145,100 155,100 150,110" style="fill:black;" />
+    <line x1="150" y1="70" x2="150" y2="100" style="stroke:black;stroke-width:1;" />
+    <polygon points="145,100 155,100 150,110" style="fill:black;" />
 
-  <rect x="50" y="100" width="200" height="50" style="fill:lightgreen;stroke:black;stroke-width:1;" />
-  <text x="150" y="130" font-family="Verdana" font-size="15" fill="black" text-anchor="middle">Run Tests</text>
+    <rect x="50" y="100" width="200" height="50" style="fill:lightgreen;stroke:black;stroke-width:1;" />
+    <text x="150" y="130" font-family="Verdana" font-size="15" fill="black" text-anchor="middle">Run Tests</text>
 
-  <line x1="150" y1="150" x2="150" y2="180" style="stroke:black;stroke-width:1;" />
-  <polygon points="145,180 155,180 150,190" style="fill:black;" />
+    <line x1="150" y1="150" x2="150" y2="180" style="stroke:black;stroke-width:1;" />
+    <polygon points="145,180 155,180 150,190" style="fill:black;" />
 
-  <rect x="50" y="180" width="200" height="50" style="fill:lightcoral;stroke:black;stroke-width:1;" />
-  <text x="150" y="210" font-family="Verdana" font-size="15" fill="black" text-anchor="middle">Create Release</text>
+    <rect x="50" y="180" width="200" height="50" style="fill:lightcoral;stroke:black;stroke-width:1;" />
+    <text x="150" y="210" font-family="Verdana" font-size="15" fill="black" text-anchor="middle">Create Release</text>
 
-  <line x1="150" y1="230" x2="150" y2="260" style="stroke:black;stroke-width:1;" />
-  <polygon points="145,260 155,260 150,270" style="fill:black;" />
+    <line x1="150" y1="230" x2="150" y2="260" style="stroke:black;stroke-width:1;" />
+    <polygon points="145,260 155,260 150,270" style="fill:black;" />
 
-  <rect x="50" y="260" width="200" height="50" style="fill:lightyellow;stroke:black;stroke-width:1;" />
-  <text x="150" y="290" font-family="Verdana" font-size="15" fill="black" text-anchor="middle">Push Release Branch</text>
-</svg>
-```
+    <rect x="50" y="260" width="200" height="50" style="fill:lightyellow;stroke:black;stroke-width:1;" />
+    <text x="150" y="290" font-family="Verdana" font-size="15" fill="black" text-anchor="middle">Push Release Branch</text>
+  </svg>
+</div>
 
 ## License
 
