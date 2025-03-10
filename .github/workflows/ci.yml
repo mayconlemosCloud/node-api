@@ -23,4 +23,14 @@ jobs:
           up-flags: "--build"
           down-flags: "--volumes"
           test-container: "app"
-          test-command: "npm test && npm run cypress:run" # Executa os testes Jest e Cypress
+          test-command: "npm run test && npm run cypress:run" # Executa os testes Jest e Cypress
+
+      - name: Create Release Branch and PR
+        if: success()
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: release
+          commit-message: "Create release branch"
+          title: "Create release branch"
+          body: "This PR creates a new release branch."
