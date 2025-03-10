@@ -12,7 +12,4 @@ services:
       - /app/node_modules
     command: npm run dev
 
-  registry:
-    image: registry:2
-    ports:
-      - '5000:5000'
+
